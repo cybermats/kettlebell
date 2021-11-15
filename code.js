@@ -19,6 +19,14 @@ var Stopwatch = function (elem, options) {
         }
     }
 
+    function toggle() {
+        if (interval) {
+            stop();
+        } else {
+            start();
+        }
+    }
+
     function reset() {
         clock = 0;
         render();
@@ -51,154 +59,154 @@ var Stopwatch = function (elem, options) {
     this.stop = stop;
     this.reset = reset;
     this.running = running;
+    this.toggle = toggle;
 };
 
-var timers = {};
-
-
-function onclickToggleTimer(event) {
-    var workout = event.target.closest(".workout");
-    var timer = timers[workout.id];
-    if (timer.running()) {
-        timer.stop();
-    } else {
-        timer.start();
-    }
-    updateToggleButton(workout);
-}
-
-function updateToggleButton(workout_elem) {
-    var button = workout_elem.querySelector(".toggle-counter");
-    if (timers[workout_elem.id].running()) {
-        button.innerHTML = "Done";
-    } else {
-        button.innerHTML = "Start";
-    }
-}
-
-function onclickStart(event) {
-    var workout = event.target.closest(".workout");
-    var timer = timers[workout.id];
-    timer.start();
-}
-
-function onclickDone(event) {
-    var workout = event.target.closest(".workout");
-    var timer = timers[workout.id];
-    timer.stop();
-}
-
-function onclickReset(event) {
-    var workout = event.target.closest(".workout");
-    var timer = timers[workout.id];
-    timer.stop();
-    timer.reset();
-    var checkboxes = workout.querySelectorAll(".workout-set-list-item > input");
-    for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = false;
-    }
-    updateToggleButton(workout);
-}
-
-function onclickAddSet(event) {
-    var workout = event.target.closest(".workout");
+var Workout = function (elem, ontoggle) {
+    // General variables
+    var workout = elem;
+    var workoutId = workout.id;
     var ul = workout.querySelector("ul.workout-sets");
-    if (ul) {
-        var lis = ul.getElementsByTagName("li");
-        var li = createCheckbox(workout.id, lis.length);
-        ul.appendChild(li);
-        localStorage.setItem(workout.id, lis.length);
-    }
-    onCheckboxClick(event);
-}
+    var sets = localStorage.getItem(workoutId);
 
-function onclickRemoveSet(event) {
-    var workout = event.target.closest(".workout");
-    var uls = workout.getElementsByClassName("workout-sets");
-    if (uls.length > 0) {
-        var ul = uls[0];
-        var lis = ul.getElementsByTagName("li");
-        var li = lis.item(lis.length - 1);
-        ul.removeChild(li);
-        localStorage.setItem(workout.id, lis.length);
-    }
-    onCheckboxClick(event);
-}
-
-function onCheckboxClick(event) {
-    var workout = event.target.closest(".workout");
-    var checkboxes = workout.getElementsByTagName("input");
-    var checked = 0;
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            checked++;
+    // Create initial checkboxes
+    if (sets) {
+        if (ul) {
+            for (var i = 0; i < sets; i++) {
+                var li = createCheckbox(workoutId, i);
+                ul.appendChild(li);
+            }
         }
     }
-    var workout = event.target.closest(".workout");
-    var timer = timers[workout.id];
 
-    if (checked == checkboxes.length) {
-        timer.stop();
-    } else if (checked == 0) {
-        timer.stop();
-    } else {
-        timer.start();
+    // Create timer
+    var timer = new Stopwatch(workout.querySelector(".workout-duration"), {
+        delay: 100
+    });
+
+
+    // Handle Add Set
+    var addSetButton = workout.querySelector(".workout-add-set");
+    if (addSetButton) {
+        addSetButton.addEventListener("click", onclickAddSet);
     }
-    updateToggleButton(workout);
 
-    return checked == checkboxes.length;
-}
-
-function createCheckbox(workoutId, setCount) {
-    var setId = workoutId + "-" + setCount;
-    var input = document.createElement("input");
-    input.type = "checkbox";
-    input.className = "workout-set"
-    input.name = setId;
-    input.id = setId;
-    input.addEventListener("click", onCheckboxClick);
-
-    var label = document.createElement("label");
-    label.className = "workout-set-button"
-    label.htmlFor = setId;
-    label.setAttribute("workout-set-name", setCount + 1);
-
-    var li = document.createElement("li");
-    li.className = "workout-set-list-item"
-    li.appendChild(input);
-    li.appendChild(label);
-    return li;
-}
-
-function initializeCheckboxes(id, itemsToAdd) {
-    var div = document.getElementById(id);
-    var uls = div.getElementsByClassName("workout-sets");
-    if (uls.length > 0) {
-        var ul = uls[0];
-        for (var i = 0; i < itemsToAdd; i++) {
-            var li = createCheckbox(id, i);
+    function onclickAddSet(event) {
+        if (ul) {
+            var lis = ul.querySelectorAll("li");
+            var li = createCheckbox(lis.length);
             ul.appendChild(li);
+            localStorage.setItem(workoutId, lis.length + 1);
+        }
+    }
+
+    // Handle Remove Set
+    var removeSetButton = workout.querySelector(".workout-remove-set");
+    if (removeSetButton) {
+        removeSetButton.addEventListener("click", onclickRemoveSet);
+    }
+
+    function onclickRemoveSet(event) {
+        if (ul) {
+            var lis = ul.querySelectorAll("li");
+            var li = lis.item(lis.length - 1);
+            ul.removeChild(li);
+            localStorage.setItem(workout.id, lis.length - 1);
+        }
+    }
+
+    // Handle Timer Toggle
+    var toggleButton = workout.querySelector(".workout-toggle");
+    toggleButton.addEventListener("click", onclickToggleTimer);
+
+    function onclickToggleTimer(event) {
+        timer.toggle();
+        toggleEvent();
+    }
+    /*
+        // Handle Reset
+        var resetButton = workout.querySelector(".workout-reset");
+        resetButton.addEventListener("click", onclickReset);
+    
+        function onclickReset(event) {
+            timer.stop();
+            timer.reset();
+            var checkboxes = workout.querySelectorAll(".workout-set");
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = false;
+            }
+    
+            toggleEvent();
+        }
+    */
+    // Handle Checkbox Toggle
+    function onclickCheckbox(event) {
+        var checkboxes = workout.querySelectorAll(".workout-set");
+        var checked = 0;
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                checked++;
+            }
+        }
+        if (checked == checkboxes.length) {
+            timer.stop();
+        } else if (checked == 0) {
+            timer.stop();
+        } else {
+            timer.start();
+        }
+        toggleEvent();
+    }
+
+    // Helper functions
+    function createCheckbox(setCount) {
+        var setId = workoutId + "-" + setCount;
+        var input = document.createElement("input");
+        input.type = "checkbox";
+        input.className = "workout-set"
+        input.name = setId;
+        input.id = setId;
+        input.addEventListener("click", onclickCheckbox);
+
+        var label = document.createElement("label");
+        label.className = "workout-set-button"
+        label.htmlFor = setId;
+        label.setAttribute("workout-set-name", setCount + 1);
+
+        var li = document.createElement("li");
+        li.className = "workout-set-list-item"
+        li.appendChild(input);
+        li.appendChild(label);
+        return li;
+    }
+
+    function toggleEvent() {
+        if (timer.running()) {
+            toggleButton.innerHTML = toggleButton.getAttribute("workout-running");
+        } else {
+            toggleButton.innerHTML = toggleButton.getAttribute("workout-idle");
+        }
+        if (ontoggle) {
+            ontoggle(timer.running());
         }
     }
 }
+
 
 function init() {
-    var swings = localStorage.getItem("swing");
-    if (!swings) {
-        swings = 5;
-        localStorage.setItem("swing", swings);
+    if (!localStorage.getItem("warmup")) {
+        localStorage.setItem("warmup", 3);
     }
-    var getups = localStorage.getItem("getup");
-    if (!getups) {
-        getups = 5;
-        localStorage.setItem("getup", getups);
+    if (!localStorage.getItem("swing")) {
+        localStorage.setItem("swing", 5);
     }
-    initializeCheckboxes("swing", swings);
-    initializeCheckboxes("getup", getups);
+    if (!localStorage.getItem("getup")) {
+        localStorage.setItem("getup", 5);
+    }
 
     var elems = document.getElementsByClassName("workout");
     for (var i = 0; i < elems.length; i++) {
-        timers[elems[i].id] = new Stopwatch(elems[i].querySelector(".duration"));
+        new Workout(elems[i]);
     };
 };
 
