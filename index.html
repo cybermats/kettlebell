@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kettlebell</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="code.js"></script>
+</head>
+<h1>Kettlebell</h1>
+<h2>Warmup</h2>
+<div id="warmup" class="workout">
+    <p>3 cycles:</p>
+    <ul>
+        <li>5 x Prying squats</li>
+        <li>5 x Supine Hip Bridges</li>
+        <li>5 x Haloes, each way</li>
+    </ul>
+    <p>Duration:
+        <span class="duration">0</span>
+    </p>
+    <ul class="counter">
+        <li><button class="toggle-counter" onclick="onclickToggleTimer(event)">Begin</button></li>
+        <li><button class="reset-counter" onclick="onclickReset(event)">Reset</button></li>
+    </ul>
+</div>
+<h2>Workout</h2>
+<div id="swing" class="workout">
+    <h3>Swings</h3>
+    <ul class="workout-sets">
+    </ul>
+    <p>Duration:
+        <span class="duration">1:42</span>
+    </p>
+    <ul class="counter">
+        <li><button class="add-set" onclick="onclickAddSet(event)">Add Set</button></li>
+        <li><button class="remove-set" onclick="onclickRemoveSet(event)">Remove Set</button></li>
+        <li><button class="toggle-counter" onclick="onclickToggleTimer(event)">Begin</button></li>
+        <li><button class="reset-counter" onclick="onclickReset(event)">Reset</button></li>
+    </ul>
+
+</div>
+<div id="getup" class="workout">
+    <h3>Getups</h3>
+    <ul class="workout-sets">
+    </ul>
+    <p>Duration:
+        <span class="duration">0</span>
+    </p>
+    <ul class="counter">
+        <li><button class="add-set" onclick="onclickAddSet(event)">Add Set</button></li>
+        <li><button class="remove-set" onclick="onclickRemoveSet(event)">Remove Set</button></li>
+        <li><button class="toggle-counter" onclick="onclickToggleTimer(event)">Begin</button></li>
+        <li><button class="reset-counter" onclick="onclickReset(event)">Reset</button></li>
+    </ul>
+</div>
+<div id="overview" class="workout">
+    <h3>Overview</h3>
+    <p>Duration:
+        <span class="duration">0</span>
+    </p>
+    <ul class="counter">
+        <li><button class="begin-workout-btn" onclick="onclickToggleTimer(event)">Begin</button></li>
+        <li><button class="save-btn" onclick="onclickSave(event)">Save</button></li>
+        <li><button class="reset-btn" onclick="onclickResetAll(event)">Reset All</button></li>
+    </ul>
+</div>
+
+<body>
+</body>
+
+</html>

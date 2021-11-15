@@ -1,0 +1,38 @@
+/*
+ul,
+li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.workout-sets {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.workout-set-list-item {
+}
+
+.workout-set {
+    display: none;
+}
+
+.workout-set-button {
+    background: green;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+
+}
+
+.workout-set-button:after {
+    content: attr(workout-set-name);
+}
+
+.workout-set:checked ~ .workout-set-button:after {
+    content: "✔️";
+}
+
+*/
