@@ -1,4 +1,20 @@
-/*
+html, body {
+    font-family: sans-serif;
+    margin: 0;
+}
+
+h1, h2 {
+    text-align: center;
+    background: rgb(58, 27, 196);
+    color: white;
+    padding: 1rem;
+    margin: 0;
+}
+
+.workout {
+    margin: 1rem;
+}
+
 ul,
 li {
     list-style: none;
@@ -6,11 +22,34 @@ li {
     padding: 0;
 }
 
+.workout-buttons {
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.workout-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    border: none;
+    margin: 0.5rem;
+    color: rgb(58, 27, 196);
+    background: rgb(229, 226, 238);;
+}
+
+
 .workout-sets {
     text-align: center;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    flex-wrap: wrap;
+/*    justify-content: space-around;*/
 }
 
 .workout-set-list-item {
@@ -19,20 +58,37 @@ li {
 .workout-set {
     display: none;
 }
-
 .workout-set-button {
-    background: green;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-
+    background: rgb(58, 27, 196);
+    color: white;
 }
 
 .workout-set-button:after {
     content: attr(workout-set-name);
 }
 
-.workout-set:checked ~ .workout-set-button:after {
-    content: "✔️";
+.workout-set:checked ~ .workout-set-button {
+    background: white;
+    border: solid 2px rgb(58, 27, 196);
 }
 
-*/
+.workout-set:checked ~ .workout-set-button:after {
+    content: "✔️";
+    color: rgb(58, 27, 196);
+}
+
+.workout-text-button {
+    background: rgb(58, 27, 196);
+    color: white;
+    width: 5rem;
+    transition: all 0.1s ease-out;
+}
+
+.workout-text-button:active {
+    background: rgb(102, 80, 201);
+    transform: translateY(0.2rem);
+}
+
+.workout-duration {
+    float: right;
+}

@@ -82,7 +82,7 @@ var Workout = function (elem, ontoggle) {
     if (config && config.sets) {
         if (ul) {
             for (var i = 0; i < config.sets; i++) {
-                var li = createCheckbox(workoutId, i);
+                var li = createCheckbox(i);
                 ul.appendChild(li);
             }
         }
@@ -90,7 +90,7 @@ var Workout = function (elem, ontoggle) {
     }
 
     // Create timer
-    var timer = new Stopwatch(workout.querySelector(".workout-duration"), {
+    var timer = new Stopwatch(workout.querySelector(".workout-duration-new"), {
         delay: 100
     });
 
@@ -168,7 +168,7 @@ var Workout = function (elem, ontoggle) {
         input.addEventListener("click", onclickCheckbox);
 
         var label = document.createElement("label");
-        label.className = "workout-set-button"
+        label.className = "workout-button workout-set-button"
         label.htmlFor = setId;
         label.setAttribute("workout-set-name", setCount + 1);
 
@@ -226,40 +226,20 @@ var Workout = function (elem, ontoggle) {
 function init() {
 
     if (!localStorage.getItem("warmup")) {
-        localStorage.setItem("warmup", JSON.stringify({ "sets": 3, "duration": 0 }));
+        localStorage.setItem("warmup", JSON.stringify({ "sets": 3, "duration": 0, "weight": 12 }));
     }
     if (!localStorage.getItem("swing")) {
-        localStorage.setItem("swing", JSON.stringify({ "sets": 5, "duration": 0 }));
+        localStorage.setItem("swing", JSON.stringify({ "sets": 5, "duration": 0, "weight": 18 }));
     }
     if (!localStorage.getItem("getup")) {
-        localStorage.setItem("getup", JSON.stringify({ "sets": 5, "duration": 0 }));
+        localStorage.setItem("getup", JSON.stringify({ "sets": 5, "duration": 0, "weight": 12 }));
     }
 
     var elems = document.getElementsByClassName("workout");
 
-    // Create timer
-    var overviewTimer = new Stopwatch(document.querySelector("#overview .workout-duration"), {
-        delay: 100
-    });
-
     var tasks = [];
-    function callback() {
-        var stopped = true;
-        for (var i = 0; i < tasks.length; i++) {
-            if (tasks[i].running()) {
-                stopped = false;
-                break;
-            }
-        }
-        if (stopped) {
-            overviewTimer.stop();
-        } else {
-            overviewTimer.start();
-        }
-    }
-
     for (var i = 0; i < elems.length; i++) {
-        tasks.push(new Workout(elems[i], callback));
+        tasks.push(new Workout(elems[i]));
     };
 
     var resetButton = document.querySelector(".workout-reset");
@@ -273,8 +253,6 @@ function init() {
         for (var i = 0; i < tasks.length; i++) {
             tasks[i].reset();
         }
-        overviewTimer.stop();
-        overviewTimer.reset();
     }
 
     var saveButton = document.querySelector(".workout-save");

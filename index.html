@@ -7,67 +7,87 @@
     <title>Kettlebell</title>
     <link rel="stylesheet" href="style.css">
     <script src="code.js"></script>
+    <link rel="icon" href="kettlebell.svg">
+    <link rel="mask-icon" href="kettlebell.svg" color="#ffffff">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <meta name="apple-mobile-web-app-title" content="Kettlebell">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
-<h1>Kettlebell</h1>
+<h1>
+    <img src="kettlebell.svg">
+</h1>
 
 <h2>Warmup</h2>
 <div id="warmup" class="workout">
-    <p>3 cycles:</p>
     <ul>
         <li>5 x Prying squats</li>
         <li>5 x Supine Hip Bridges</li>
         <li>5 x Haloes, each way</li>
     </ul>
+    <p>Duration:
+        <span class="workout-duration">
+            <span class="workout-duration-new">0</span>
+            (<span class="workout-duration-old">0</span>)
+        </span>
+    </p>
+    <p>Sets</p>
     <ul class="workout-sets">
     </ul>
-    <p>Duration:
-        <span class="workout-duration">0</span>
-        (<span class="workout-duration-old">0</span>)
-    </p>
-    <ul class="counter">
-        <li><button class="workout-toggle" workout-idle="Begin" workout-running="Done">Begin</button></li>
+    <ul class="workout-buttons">
+        <li><button class="workout-button workout-text-button workout-toggle" workout-idle="Begin"
+                workout-running="Done">Begin</button>
+        </li>
     </ul>
 </div>
 <h2>Workout</h2>
 <div id="swing" class="workout">
     <h3>Swings</h3>
+    <p>Duration:
+        <span class="workout-duration">
+            <span class="workout-duration-new">0</span>
+            (<span class="workout-duration-old">0</span>)
+        </span>
+    </p>
     <ul class="workout-sets">
     </ul>
-    <p>Duration:
-        <span class="workout-duration">1:42</span>
-        (<span class="workout-duration-old">0</span>)
-    </p>
-    <ul class="counter">
-        <li><button class="workout-add-set">+</button></li>
-        <li><button class="workout-remove-set">-</button></li>
-        <li><button class="workout-toggle" workout-idle="Begin" workout-running="Done">Begin</button></li>
+    <ul class="workout-buttons">
+        <li><button class="workout-button workout-add-set">+</button></li>
+        <li><button class="workout-button workout-remove-set">-</button></li>
+        <li><button class="workout-button workout-text-button workout-toggle" workout-idle="Begin"
+                workout-running="Done">Begin</button>
+        </li>
     </ul>
 
 </div>
 <div id="getup" class="workout">
     <h3>Getups</h3>
+    <p>Duration:
+        <span class="workout-duration">
+            <span class="workout-duration-new">0</span>
+            (<span class="workout-duration-old">0</span>)
+        </span>
+    </p>
     <ul class="workout-sets">
     </ul>
-    <p>Duration:
-        <span class="workout-duration">0</span>
-        (<span class="workout-duration-old">0</span>)
-    </p>
-    <ul class="counter">
-        <li><button class="workout-add-set">+</button></li>
-        <li><button class="workout-remove-set">-</button></li>
-        <li><button class="workout-toggle" workout-idle="Begin" workout-running="Done">Begin</button></li>
+    <ul class="workout-buttons">
+        <li><button class="workout-button workout-add-set">+</button></li>
+        <li><button class="workout-button workout-remove-set">-</button></li>
+        <li><button class="workout-button workout-text-button workout-toggle" workout-idle="Begin"
+                workout-running="Done">Begin</button>
+        </li>
     </ul>
 </div>
-<div id="overview">
-    <h2>Overview</h2>
-    <p>Duration:
-        <span class="workout-duration">0</span>
-        (<span class="workout-duration-old">0</span>)
-    </p>
-    <ul class="counter">
-        <li><button class="workout-save">Save</button></li>
-        <li><button class="workout-reset">Restart</button></li>
+<h2>Misc</h2>
+<div id="overview" class="workout">
+    <h3>Settings</h3>
+    <ul class="workout-buttons">
+        <li><button class="workout-button workout-text-button workout-save">Save</button></li>
+        <li><button class="workout-button workout-text-button workout-reset">Restart</button></li>
     </ul>
+    <h3>About</h3>
+    <p>Copyright 2021 <a href="https://boop.fyi">boop.fyi</a></p>
+    <h3>Licenses</h3>
+    <a href="https://www.vecteezy.com/free-vector/sports">Sports Vectors by Vecteezy</a>
 </div>
 
 <body>
