@@ -9,17 +9,6 @@
     <script src="code.js"></script>
 </head>
 <h1>Kettlebell</h1>
-<div id="overview" class="workout">
-    <h3>Overview</h3>
-    <p>Duration:
-        <span class="workout-duration">0</span>
-    </p>
-    <ul class="counter">
-        <li><button class="workout-toggle" workout-idle="Begin" workout-running="Done">Begin</button></li>
-        <li><button class="save-btn" onclick="onclickSave(event)">Save</button></li>
-        <li><button class="workout-reset">Reset All</button></li>
-    </ul>
-</div>
 
 <h2>Warmup</h2>
 <div id="warmup" class="workout">
@@ -33,6 +22,7 @@
     </ul>
     <p>Duration:
         <span class="workout-duration">0</span>
+        (<span class="workout-duration-old">0</span>)
     </p>
     <ul class="counter">
         <li><button class="workout-toggle" workout-idle="Begin" workout-running="Done">Begin</button></li>
@@ -45,6 +35,7 @@
     </ul>
     <p>Duration:
         <span class="workout-duration">1:42</span>
+        (<span class="workout-duration-old">0</span>)
     </p>
     <ul class="counter">
         <li><button class="workout-add-set">+</button></li>
@@ -59,11 +50,23 @@
     </ul>
     <p>Duration:
         <span class="workout-duration">0</span>
+        (<span class="workout-duration-old">0</span>)
     </p>
     <ul class="counter">
         <li><button class="workout-add-set">+</button></li>
         <li><button class="workout-remove-set">-</button></li>
         <li><button class="workout-toggle" workout-idle="Begin" workout-running="Done">Begin</button></li>
+    </ul>
+</div>
+<div id="overview">
+    <h2>Overview</h2>
+    <p>Duration:
+        <span class="workout-duration">0</span>
+        (<span class="workout-duration-old">0</span>)
+    </p>
+    <ul class="counter">
+        <li><button class="workout-save">Save</button></li>
+        <li><button class="workout-reset">Restart</button></li>
     </ul>
 </div>
 
